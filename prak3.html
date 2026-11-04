@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Belanja</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 400px;
+            margin: 40px auto;
+        }
+        li { margin: 8px 0; }
+        li button { margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Daftar Belanja</h2>
+    <h3>Jumlah Barang: <span id="jumlahBarang">0</span></h3>
+
+    <input type="text" id="barang" placeholder="Nama barang">
+    <button id="btnTambah">Tambah</button>
+    <ul id="daftar"></ul>
+
+<script>
+
+    const barang = document.getElementById('barang');
+    const btnTambah = document.getElementById('btnTambah');
+    const daftar = document.getElementById('daftar');
+    const jumlahBarang = document.getElementById('jumlahBarang');
+
+    // Fungsi memperbarui jumlah barang
+    function updateJumlah() {
+        jumlahBarang.textContent = daftar.children.length;
+    }
+
+    // Fungsi menambahkan barang
+    function tambahBarang() {
+        if (barang.value.trim() === '') {
+            alert('Isi nama barang dulu ya!');
+            return;
+        }
+
+        const li = document.createElement('li');
+        li.textContent = barang.value;
+
+        const btnHapus = document.createElement('button');
+        btnHapus.textContent = 'Hapus';
+
+        btnHapus.addEventListener('click', () => {
+            li.remove();
+            updateJumlah();
+        });
+
+        li.appendChild(btnHapus);
+        daftar.appendChild(li);
+
+        barang.value = '';
+        updateJumlah();
+    }
+
+    // Klik tombol Tambah
+    btnTambah.addEventListener('click', tambahBarang);
+
+    // Tekan Enter untuk menambahkan barang
+    barang.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            tambahBarang();
+        }
+    });
+
+</script>
+</body>
+</html>
